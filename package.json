@@ -1,0 +1,25 @@
+{
+  "name": "graphql_backend",
+  "version": "1.0.0",
+  "description": "graphql_course",
+  "main": "index.js",
+  "repository": "https://github.com/antonmazhuto/graphql_backend.git",
+  "author": "antonmazhuto <mazhuto.anton@tui.ru>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "yarn clean && babel-watch ./src/index.js",
+    "clean": "rm -rf ./node_modules/.cache/babel-loader"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-plugin-import-graphql": "^2.7.0",
+    "babel-watch": "^7.0.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.13.0",
+    "express": "^4.17.1",
+    "uuid": "^8.0.0"
+  }
+}
