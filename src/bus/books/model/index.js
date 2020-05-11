@@ -1,23 +1,8 @@
-const generatedId = require('uuid');
+// const generatedId = require('uuid');
+//Core
+import generatedId from 'uuid';
 
-const initialDB = [
-    [
-        'ID-1',
-        {
-            title: 'Harry Potter',
-            author: 'J.K. Rowling'
-        },
-    ],
-    [
-        'ID-2',
-        {
-            title: 'Jurassic Park',
-            author: 'M. Crichton'
-        }
-    ]
-];
-
-const booksDB = new Map(initialDB);
+import { booksDB } from "./db";
 
 export const getBooks = () => {
     const books = [];
@@ -33,6 +18,9 @@ export const getBooks = () => {
 
 export const getBookById = (id) => {
     const book = booksDB.get(id);
+    if (!book) {
+        throw new Error(`We don't have a book with id: ${id}`)
+    }
     return {
         id, ...book
     };
