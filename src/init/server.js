@@ -1,48 +1,16 @@
 // Core
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import cors from 'cors';
-import session from 'express-session';
+import http from "http";
 
-//Config
-import { sessionOptions, corsOptions } from "./config";
+// Express App
+import { app } from "./app";
 
 // Middleware
-import { readToken } from "./readToken";
+import './applyMiddleware';
 
-// Schema Types
-import schema from "./types.graphql";
+// Apollo Server
+import { apolloServer } from "./apolloServer";
 
-//Resolvers
-import { resolvers } from "./resolvers";
+const server = http.createServer(app);
+apolloServer.installSubscriptionHandlers(server);
 
-// API
-import { api as starshipsAPI } from '../bus/starships/dataSource';
-
-const app = express();
-
-app.use(session(sessionOptions));
-app.use(cors(corsOptions));
-app.use(readToken);
-
-const server = new ApolloServer({
-    typeDefs: schema,
-    resolvers,
-    dataSources: () => {
-        return {
-            starshipsAPI
-        }
-    },
-    context: ({ req, res }) => {
-        return { req, res };
-    },
-    playground: {
-        settings: {
-            "request.credentials": "include"
-        }
-    }
-});
-
-server.applyMiddleware({ app, cors: false });
-
-export { server, app }
+export { server, apolloServer }

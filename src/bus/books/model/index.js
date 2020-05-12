@@ -1,6 +1,6 @@
 // const generatedId = require('uuid');
 //Core
-import generatedId from 'uuid';
+import { v4 as generatedId } from 'uuid';
 
 import { booksDB } from "./db";
 
@@ -27,7 +27,7 @@ export const getBookById = (id) => {
 };
 
 export const saveBook = (book) => {
-    const id = generatedId.v1();
+    const id = generatedId();
     booksDB.set(id, book);
     const savedBook = booksDB.get(id);
     return { id, ...savedBook}
